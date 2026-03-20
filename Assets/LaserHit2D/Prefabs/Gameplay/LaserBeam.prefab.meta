@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3f476af705b40c94b9d4f98185135c90
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324703
+  packageName: Laser Hit 2D - Game Template
+  packageVersion: 1.0
+  assetPath: Assets/LaserHit2D/Prefabs/Gameplay/LaserBeam.prefab
+  uploadId: 767830

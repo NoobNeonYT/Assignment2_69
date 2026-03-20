@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3cd65ed27eb915a43952e850a0f43782
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324703
+  packageName: Laser Hit 2D - Game Template
+  packageVersion: 1.0
+  assetPath: Assets/LaserHit2D/ScriptableObjects/Levels/level 7.asset
+  uploadId: 767830

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 04db3c0f1d5af7f48831b1957acf484b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324703
+  packageName: Laser Hit 2D - Game Template
+  packageVersion: 1.0
+  assetPath: Assets/LaserHit2D/Scripts/UI/UIData.cs
+  uploadId: 767830

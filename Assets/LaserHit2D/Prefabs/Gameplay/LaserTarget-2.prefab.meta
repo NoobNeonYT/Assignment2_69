@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2946d79193eb58b4d981e4eb3dc7dccf
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324703
+  packageName: Laser Hit 2D - Game Template
+  packageVersion: 1.0
+  assetPath: Assets/LaserHit2D/Prefabs/Gameplay/LaserTarget-2.prefab
+  uploadId: 767830

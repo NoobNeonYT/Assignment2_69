@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 45986f298335b304f8c468a668d98c2d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324703
+  packageName: Laser Hit 2D - Game Template
+  packageVersion: 1.0
+  assetPath: Assets/LaserHit2D/Prefabs/Levels/Level-5.prefab
+  uploadId: 767830

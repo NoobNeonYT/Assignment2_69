@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1bce1d60fd6d65147981f5ce066fc4a4
+timeCreated: 1538755133
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 324703
+  packageName: Laser Hit 2D - Game Template
+  packageVersion: 1.0
+  assetPath: Assets/LaserHit2D/Scenes/Scene_1.unity
+  uploadId: 767830
