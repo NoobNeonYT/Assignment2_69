@@ -13,8 +13,12 @@ public class MinionAI : MonoBehaviour
     [Header("Obstacle Avoidance")]
     public float lookAhead = 1.5f;
     public float rayAngle = 20f;
-    public float avoidForce = 12f; // ปรับลดลงนิดนึงจะได้เลี้ยวสมูทขึ้น
+    public float avoidForce = 12f;
     public LayerMask obstacleLayer;
+
+    [Header("Separation (เดินไม่ซ้อนทับกัน)")]
+    public float separationRadius = 1.5f; // รัศมีที่จะเริ่มผลักเพื่อนออก
+    public float separationForce = 10f; // แรงผลัก (ยิ่งเยอะยิ่งดีดแรง)
 
     private Rigidbody2D rb;
 
@@ -49,10 +53,8 @@ public class MinionAI : MonoBehaviour
         Vector2 futurePosition = (Vector2)target.position + (targetRb.linearVelocity * prediction);
         Vector2 pursueVelocity = (futurePosition - rb.position).normalized * maxSpeed;
 
-        // --- 2. ระบบ Obstacle Avoidance (แถลบออกข้าง) ---
+        // --- 2. ระบบ Obstacle Avoidance (หลบกำแพง) ---
         Vector2 forwardDir = rb.linearVelocity.sqrMagnitude > 0.1f ? rb.linearVelocity.normalized : pursueVelocity.normalized;
-
-        // สร้างเวกเตอร์ทิศ "ขวา" และ "ซ้าย" ของตัวละคร เพื่อใช้ผลักออกด้านข้าง
         Vector2 rightDir = new Vector2(forwardDir.y, -forwardDir.x);
         Vector2 leftDir = new Vector2(-forwardDir.y, forwardDir.x);
 
@@ -64,26 +66,47 @@ public class MinionAI : MonoBehaviour
 
         Vector2 avoidanceForce = Vector2.zero;
 
-        Debug.DrawRay(rb.position, leftRayDir * lookAhead, Color.yellow);
-        Debug.DrawRay(rb.position, rightRayDir * lookAhead, Color.yellow);
-
-        // เปลี่ยนจากดันสะท้อนกลับ เป็นดันออกด้านข้างแทน
         if (hitLeft.collider != null)
         {
-            // เรดาร์ซ้ายชน -> ผลักตัวหลบไปทางขวา
             avoidanceForce += rightDir * avoidForce;
-            Debug.DrawRay(hitLeft.point, rightDir, Color.red);
         }
         else if (hitRight.collider != null)
         {
-            // เรดาร์ขวาชน -> ผลักตัวหลบไปทางซ้าย
             avoidanceForce += leftDir * avoidForce;
-            Debug.DrawRay(hitRight.point, leftDir, Color.red);
         }
 
-        // --- 3. รวมพลัง ---
-        Vector2 finalVelocity = pursueVelocity + avoidanceForce;
+        // --- 3. ระบบ Separation (หลบเพื่อนไม่ให้เดินทับกัน) ---
+        Vector2 separationVector = Vector2.zero;
+        int minionCount = 0;
 
+        // ตรวจหา Collider ทั้งหมดในรัศมี
+        Collider2D[] neighbors = Physics2D.OverlapCircleAll(rb.position, separationRadius);
+        foreach (Collider2D neighbor in neighbors)
+        {
+            // เช็คว่าไม่ใช่ตัวเอง และมีสคริปต์ MinionAI (แปลว่าเป็นเพื่อนมินเนี่ยน)
+            if (neighbor.gameObject != gameObject && neighbor.GetComponent<MinionAI>() != null)
+            {
+                Vector2 pushAwayDir = rb.position - (Vector2)neighbor.transform.position;
+
+                // ยิ่งอยู่ใกล้กันมาก แรงผลักยิ่งมหาศาล (แปรผกผันกับระยะทาง)
+                float neighborDistance = pushAwayDir.magnitude;
+                if (neighborDistance > 0) // กันค่าเป็น 0 แล้ว Error
+                {
+                    separationVector += (pushAwayDir.normalized / neighborDistance);
+                    minionCount++;
+                }
+            }
+        }
+
+        if (minionCount > 0)
+        {
+            separationVector *= separationForce;
+        }
+
+        // --- 4. รวมพลัง (Pursue + Avoidance กำแพง + Separation หลบเพื่อน) ---
+        Vector2 finalVelocity = pursueVelocity + avoidanceForce + separationVector;
+
+        // คุมความเร็วไม่ให้ดีดแรงเกินไปเวลาโดนหลายๆ แรงผลักพร้อมกัน
         if (finalVelocity.magnitude > maxSpeed)
         {
             finalVelocity = finalVelocity.normalized * maxSpeed;
@@ -91,7 +114,7 @@ public class MinionAI : MonoBehaviour
 
         rb.linearVelocity = finalVelocity;
 
-        // --- 4. หันหน้า ---
+        // --- 5. หันหน้า ---
         if (finalVelocity.sqrMagnitude > 0.1f)
         {
             float angle = Mathf.Atan2(finalVelocity.y, finalVelocity.x) * Mathf.Rad2Deg;

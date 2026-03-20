@@ -49,8 +49,8 @@ MonoBehaviour:
   moveSpeed: 0.5
   lifeTime: 30
   laserBeam: {fileID: 8359883693222096157}
-  onDuration: 5
-  offDuration: 4
+  onDuration: 4
+  offDuration: 5
 --- !u!1 &8247931942464076263
 GameObject:
   m_ObjectHideFlags: 0

@@ -969,12 +969,12 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 2186b00d-8d2e-496a-acf8-c1d4894c712e
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
+  projectName: Assignment2_69
   organizationId: chalalaija123
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
